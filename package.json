@@ -9,7 +9,7 @@
     "start": "node ./dist/server",
     "compile": "tsc -p ./tsconfig.json",
     "clean": "rm -rf dist && mkdir dist",
-    "heroku-postbuild": "yarn clean && yarn compile && cd client && yarn build"
+    "heroku-postbuild": "yarn clean && yarn compile && cd client && yarn && yarn build"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
