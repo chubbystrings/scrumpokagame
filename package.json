@@ -2,6 +2,9 @@
   "name": "scrum-pointer",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node ./dist/server",
     "compile": "tsc -p ./tsconfig.json",
