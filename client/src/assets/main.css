@@ -1,0 +1,87 @@
+:root {
+  --primary: #081221;
+  --secondary: #03080f;
+  --card: #0e1a2b;
+  --lighter: #aec9ee;
+  --text: #c1d1e8;
+  --button: #5692e8;
+  --heading: #ffffff;
+  --input: #182c47;
+  --line: #aec9ee;
+  --border: #494848;
+  --disabled: #b1abab;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+label,
+button {
+  font-family: "Montserrat", sans-serif;
+  color: var(--text);
+}
+
+p,
+small,
+div,
+a,
+input,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Mulish", sans-serif;
+  color: var(--text);
+}
+a {
+  text-decoration: none;
+  color: var(--heading);
+}
+a:hover {
+  color: var(--text);
+}
+
+button:hover {
+  filter: brightness(70%);
+}
+.btn {
+  display: block;
+
+  padding: 0;
+  width: 150px;
+  height: 35px;
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+  background-color: var(--input);
+  color: #ecf0f1;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: 0.4px solid var(--line);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: var(--disabled);
+  border: none;
+  outline: none;
+  filter: brightness(70%);
+}
+
+@media screen and (max-width: 445px) {
+    .btn {
+        width: 70px;
+        font-size: 12px;
+    }
+}
