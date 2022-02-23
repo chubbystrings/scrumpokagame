@@ -6,7 +6,7 @@
     "start": "node ./dist/server",
     "compile": "tsc -p ./tsconfig.json",
     "clean": "rm -rf dist && mkdir dist",
-    "heroku-postBuild": "yarn --prefix client && yarn build --prefix client && yarn clean && yarn compile"
+    "heroku-postBuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix client && yarn build --prefix client && yarn clean && yarn compile"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",
