@@ -135,8 +135,6 @@ select {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
-  border: 1px solid red;
-  /* box-sizing: border-box; */
 }
 
 .select--avatar img {
