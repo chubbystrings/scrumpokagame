@@ -37,12 +37,15 @@
 import { computed, defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import { avatars } from "@/utils/avatars";
+import socket from "../services/socket.service";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup(props, context) {
     const name = ref("");
     const route = useRoute();
     const selectedAvatar = ref("");
+     const router = useRouter();
 
     const isSelected = computed(() => {
       return (i: number) => {
@@ -55,13 +58,18 @@ export default defineComponent({
       selectedAvatar.value = avatar;
     };
 
+    
+
     const handleJoin = () => {
       const user = {
         username: name.value,
         room: route.params.id,
         avatar: selectedAvatar.value,
       };
-      context.emit("join", user);
+      socket.joinRoom(user.username, user.room as string, user.avatar, () => {
+        router.push(`/session/${user.room}`);
+      });
+      // context.emit("join", user);
     };
     return { handleJoin, name, isSelected, handleSelect, avatars };
   },

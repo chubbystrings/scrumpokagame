@@ -1,4 +1,10 @@
 <template>
+<transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+      appear
+    >
   <div class="live-game-wrapper">
     <!-- <h2>Scrum Poker</h2> -->
     <div class="icon">
@@ -7,18 +13,39 @@
       />
     </div>
   </div>
+  </transition>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { BIconSuitClubFill } from "bootstrap-icons-vue";
+import gsap from 'gsap';
 
 export default defineComponent({
   components: {
     BIconSuitClubFill,
   },
   setup() {
-    return {};
+
+    const beforeEnter = (el: HTMLElement) => {
+      el.style.opacity = "0";
+    };
+
+     const enter = (el: HTMLElement, done: () => void) => {
+      gsap.to(el, {
+        opacity: 0.1,
+        onComplete: done,
+        ease: "Elastic.easeOut",
+      });
+    };
+
+    const leave = (el: HTMLElement) => {
+      gsap.from(el, {
+        delay: 1.2,
+        opacity: 0,
+      });
+    };
+    return { enter, leave, beforeEnter};
   },
 });
 </script>

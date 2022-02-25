@@ -1,61 +1,65 @@
 <template>
-  <div class="contact-wrapper">
-    <div class="contact-info">
-      <div class="contact-header">
-        <h2>Create New Session</h2>
-        <small>
-         Fill the form to create a new session/game, a link will be generated for other users 
-         who intend to join. Share link with others to play.
-        </small>
-      </div>
-      <div class="contact-card">
-        <div class="contact-inputs">
-          <div>
-            <label for="name">Name*</label>
-            <input v-model="username" type="text" id="name" name="name" />
-          </div>
-          <div>
-            <label for="team">Team Name*</label>
-            <input v-model="team" type="text" id="team" name="team" />
-          </div>
-          <div>
-            <label for="name">Max Fibonacci*</label>
-            <select v-model="select">
-              <option>select option</option>
-              <option value="1">1</option>
-              <option value="3">2</option>
-              <option value="3">3</option>
-              <option value="5">5</option>
-              <option value="8">8</option>
-              <option value="13">13</option>
-            </select>
-          </div>
-          <div>
-            <label>Select Avatar</label>
-            <div class="select--avatar">
-              <img
-                @click="handleSelect(avatar, i)"
-                v-for="(avatar, i) in avatars"
-                :src="avatar"
-                :key="i"
-                :class="isSelected(i)"
-              />
+    <div class="contact-wrapper" ref="contactWrapper">
+      <div class="contact-info">
+        <div class="contact-header">
+          <h2>Create New Session</h2>
+          <small>
+            Fill the form to create a new session/game, a link will be generated
+            for other users who intend to join. Share link with others to play.
+          </small>
+        </div>
+        <div class="contact-card">
+          <div class="contact-inputs">
+            <div>
+              <label for="name">Name*</label>
+              <input v-model="username" type="text" id="name" name="name" />
+            </div>
+            <div>
+              <label for="team">Team Name*</label>
+              <input v-model="team" type="text" id="team" name="team" />
+            </div>
+            <div>
+              <label for="name">Max Fibonacci*</label>
+              <select v-model="select">
+                <option>select option</option>
+                <option value="1">1</option>
+                <option value="3">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+                <option value="13">13</option>
+              </select>
+            </div>
+            <div>
+              <label>Select Avatar</label>
+              <div class="select--avatar">
+                <img
+                  @click="handleSelect(avatar, i)"
+                  v-for="(avatar, i) in avatars"
+                  :src="avatar"
+                  :key="i"
+                  :class="isSelected(i)"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="button-wrapper">
-          <button  @click="handleCreate" :disabled="!formIsValid || clicked" class="btn">
-            Create
-          </button>
+          <div class="button-wrapper">
+            <button
+              @click="handleCreate"
+              :disabled="!formIsValid || clicked"
+              class="btn"
+            >
+              Create
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import socket from "@/services/socket.service";
 import { avatars } from "@/utils/avatars";
@@ -69,12 +73,16 @@ export default defineComponent({
     const username = ref("");
     const router = useRouter();
     const selectedAvatar = ref("");
-    const select = ref('')
-    const clicked = ref(false)
+    const select = ref("");
+    const clicked = ref(false);
+
+    onMounted(() => {
+     //
+    });
 
     const callback = (room: string) => {
-      clicked.value = false
-      router.push(`/${room}`);
+      clicked.value = false;
+      router.push(`/session/${room}`);
     };
 
     const handleCreate = () => {
@@ -110,7 +118,7 @@ export default defineComponent({
       isSelected,
       formIsValid,
       select,
-      clicked
+      clicked,
     };
   },
 });
@@ -123,6 +131,60 @@ export default defineComponent({
   height: 70vh;
   box-sizing: border-box;
   font-family: Mulish;
+}
+
+.icon {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: grid;
+  place-items: center;
+  background-color: transparent;
+}
+.hide {
+  opacity: 0;
+  color: #03a6a6;
+  font-weight: lighter;
+}
+.prl-logo {
+  font-family: "Abril Fatface", cursive;
+  font-size: 1.3rem;
+  z-index: 2;
+}
+
+.preloader {
+  background: var(--primary);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightCyan-slider,
+.persianGreen-slider,
+.white-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+}
+
+.lightCyan-slider {
+  background: var(--input);
+}
+
+.persianGreen-slider {
+  background: var(--button);
+}
+
+.white-slider {
+  background: var(--lighter)
 }
 .contact-info {
   width: 45%;
@@ -197,6 +259,8 @@ select {
   filter: blur(1px);
 }
 
+
+
 @media only screen and (min-width: 1024px) {
   .contact-card label {
     font-size: 15px;
@@ -210,7 +274,6 @@ select {
 }
 
 @media only screen and (max-width: 425px) {
-  
   .contact-info {
     width: 75%;
   }

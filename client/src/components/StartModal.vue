@@ -9,14 +9,14 @@
     <template v-slot:actions>
       <div class="action-btn-wrapper">
         <button class="btn" @click="handleCancel">Cancel</button>
-        <button class="btn" @click="handleStart">Start</button>
+        <button  class="btn" :disabled="isEmptyTicketName" @click="handleStart">Start</button>
       </div>
     </template>
   </Modal>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import Modal from "./ui/Modal.vue";
 import { useStore } from "../store";
 import socket from "../services/socket.service";
@@ -28,6 +28,8 @@ export default defineComponent({
   setup() {
     const ticket = ref("");
     const store = useStore();
+
+    const isEmptyTicketName = computed(() => ticket.value.trim() === '')
 
     const handleCancel = () => {
       store.closeModal();
@@ -44,7 +46,7 @@ export default defineComponent({
       store.closeModal();
     };
 
-    return { ticket, handleCancel, handleStart };
+    return { ticket, handleCancel, handleStart, isEmptyTicketName };
   },
 });
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div class="generate-container">
-        <p class="generate-text">generate, copy & share link</p>
     <div class="generate-wrapper">
       <button class="generate-btn" @click="handleGenerate">Generate</button>
       <button :disabled="isEmpty" @click="handleClick" class="copy-btn">
@@ -14,6 +13,7 @@
         v-model="link"
       />
     </div>
+    <p class="generate-text">generate, copy & share link</p>
   </div>
 </template>
 
@@ -21,7 +21,7 @@
 import { defineComponent, ref, computed, onMounted } from "vue";
 import { BIconClipboard } from "bootstrap-icons-vue";
 import { useStore } from "@/store";
-import axiosInstance from '@/services/axios'
+import axiosInstance from "@/services/axios";
 
 export default defineComponent({
   components: {
@@ -37,12 +37,12 @@ export default defineComponent({
     }
 
     onMounted(() => {
-        console.log(window.location.href)
-    })
+      console.log(window.location.href);
+    });
 
-    const isEmpty = computed(() => link.value.trim() === '')
+    const isEmpty = computed(() => link.value.trim() === "");
 
-    console.log(isEmpty.value)
+    console.log(isEmpty.value);
 
     const handleClick = (e: HTMLInputEvent) => {
       document.getElementById("inputRef")?.focus();
@@ -55,17 +55,19 @@ export default defineComponent({
     };
 
     const handleGenerate = async () => {
-        const href = window.location.href
-        const url = href.includes('localhost') ? href.replace('localhost', '127.0.0.1') : href
-        console.log(url)
-        try {
-           const res =  await axiosInstance.post('/link', { url })
-           console.log(res.data)
-           link.value = res.data.url
-        } catch (error) {
-            console.log(error)
-        }
-    }
+      const href = window.location.href;
+      const url = href.includes("localhost")
+        ? href.replace("localhost", "127.0.0.1")
+        : href;
+      console.log(url);
+      try {
+        const res = await axiosInstance.post("/link", { url });
+        console.log(res.data);
+        link.value = res.data.url;
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     return { link, handleClick, handleSelect, handleGenerate, isEmpty };
   },
@@ -74,14 +76,14 @@ export default defineComponent({
 
 <style scoped>
 .generate-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .generate-wrapper {
   display: flex;
   align-items: center;
-  position: relative
+  position: relative;
 }
 
 .generate-wrapper .generate-btn {
@@ -121,13 +123,13 @@ export default defineComponent({
   font-size: 12px;
 }
 .generate-wrapper .copy-btn:disabled {
-    cursor: not-allowed;
-    background: var(--disabled);
-    opacity: 0.7
+  cursor: not-allowed;
+  background: var(--disabled);
+  opacity: 0.7;
 }
 
 .generate-text {
-    text-align: center;
-    font-size: 12px;
+  text-align: center;
+  font-size: 12px;
 }
 </style>

@@ -60,12 +60,12 @@ export default defineComponent({
     const ticket = computed(() => store.getCurrentTicketName);
 
     const beforeEnter = (el: HTMLElement) => {
-      el.style.transform = "translateX(100px)";
+      el.style.opacity = "0";
     };
 
     const enter = (el: HTMLElement, done: () => void) => {
       gsap.to(el, {
-        x: 0,
+        opacity: 1,
         onComplete: done,
         ease: "Elastic.easeOut",
       });
@@ -74,9 +74,8 @@ export default defineComponent({
     const leave = (el: HTMLElement) => {
       gsap.from(el, {
         delay: 1.2,
-        x: 100,
+        opacity: 0,
         duration: 0.5,
-        ease: "Elastic.easeOut",
       });
     };
 

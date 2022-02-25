@@ -71,6 +71,7 @@ export default defineComponent({
         y: 0,
         opacity: 1,
         ease: "bounce.out",
+        delay: 0.2
       });
     };
 
