@@ -17,8 +17,8 @@ export default defineComponent({
 
 <style scoped>
 .notification {
-  background-color: var(--input);
-  border-left: 5px solid var(--lighter);
+  background-color: var(--button);
+  border-left: 5px solid var(--input);
   border-radius: 2px;
   padding: 10px;
   box-sizing: border-box;
@@ -27,12 +27,12 @@ export default defineComponent({
   flex-wrap: wrap;
   white-space: pre-wrap;
   word-wrap: break-word;
-  width: 300px;
+  width: 200px;
   position: absolute;
-  right: 10px;
+  right: 20px;
   perspective: 1000px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  top: 15px;
+  bottom: 15px;
 }
 .notification:before {
   content: "";
@@ -43,7 +43,7 @@ export default defineComponent({
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-left: 12px solid var(--input);
+  border-left: 12px solid var(--button);
   right: -23px;
   bottom: 10px;
 }

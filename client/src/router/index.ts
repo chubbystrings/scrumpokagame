@@ -8,18 +8,46 @@ const routes: Array<RouteRecordRaw> = [
     name: "Home",
     component: Create,
   },
+
   {
-    path: "/:id",
+    path: "/:id/join",
+    name: "Join",
+    beforeEnter: (to, from, next) => {
+      let bool: boolean;
+      socket.confirmRoom(to.params.id as string, (b) => {
+        bool = b;
+        if (!bool) {
+           next('/');
+        } else {
+          next()
+        }
+      });
+    },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "session" */ "../views/Join.vue"),
+  },
+  
+  {
+    path: "/session/:id",
     name: "Session",
     beforeEnter: (to, from, next) => {
       let bool: boolean;
       socket.confirmRoom(to.params.id as string, (b) => {
         bool = b;
-        if (bool) {
-          next();
-        } else {
-          next("/");
-        }
+        if (!bool) {
+          return next('/');
+        } 
+        socket.confirmUser((confirm) => {
+          if (confirm) {
+            console.log(confirm)
+            next()
+          } else {
+            next(`/${to.params.id}/join`)
+          }
+        })
       });
     },
     // route level code-splitting
@@ -28,6 +56,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "session" */ "../views/Session.vue"),
   },
+
+  {
+    path: '/:pathMatch(.*)*', //will match everything and put it under `$route.params.pathMatch`
+    redirect: { name: 'Home' }
+  }
 ];
 
 const router = createRouter({

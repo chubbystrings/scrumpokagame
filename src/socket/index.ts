@@ -246,7 +246,7 @@ const useSocketService = () => {
           if (!roomExist) {
             return callback("room does not exist", null);
           }
-
+          await points.clearPoints(room);
           const ticketDetails = {
             room,
             team,
@@ -264,6 +264,15 @@ const useSocketService = () => {
           if (error) {
             return callback(error, null);
           }
+
+          const { pointsData } = await points.getAllPoints(
+            ticketData?.room as string
+          );
+
+          io.to(ticketData?.room as string).emit("all-points", {
+            room: ticketData?.room,
+            points: pointsData,
+          });
 
          
 
