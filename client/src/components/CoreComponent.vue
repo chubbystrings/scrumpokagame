@@ -4,13 +4,13 @@
       <div class="prl-logo">
         <div :class="`clubs-icon hide`" ref="wrapper">
           <BIconSuitClubFill
-            :style="{ width: '100%', height: '100%', color: '#182c47' }"
+            :style="{ width: '100%', height: '100%', color: '#5692e8' }"
           />
         </div>
       </div>
-      <div class="lightCyan-slider" ref="lightCyanSlider"></div>
-      <div class="persianGreen-slider" ref="persianGreenSlider"></div>
-      <div class="white-slider" ref="whiteSlider"></div>
+      <div class="lightBlue-slider" ref="lightBlueSlider"></div>
+      <div class="dark-blue-slider" ref="darkBlueSlider"></div>
+      <div class="darker-blue-slider" ref="darkerBlueSlider"></div>
     </div>
     <div class="main">
       <left-side-bar :users="users"></left-side-bar>
@@ -147,9 +147,9 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      const lightCyanSlider = document.querySelector(".lightCyan-slider");
-      const persianGreenSlider = document.querySelector(".persianGreen-slider");
-      const whiteSlider = document.querySelector(".white-slider");
+      const lightBlueSlider = document.querySelector(".lightBlue-slider");
+      const darkBlueSlider = document.querySelector(".dark-blue-slider");
+      const darkerBlueSlider = document.querySelector(".darker-blue-slider");
       const hide = document.querySelector(".hide");
       const preloader = document.querySelector(".preloader");
       const main = document.querySelector(".main");
@@ -166,13 +166,13 @@ export default defineComponent({
 
       const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
 
-      tl.to(lightCyanSlider, {
+      tl.to(lightBlueSlider, {
         x: "-10%",
         duration: 1,
       });
 
       tl.to(
-        persianGreenSlider,
+        darkBlueSlider,
         {
           x: "-20%",
           duration: 1.5,
@@ -181,7 +181,7 @@ export default defineComponent({
       );
 
       tl.to(
-        whiteSlider,
+        darkerBlueSlider,
         {
           x: "-30%",
           duration: 1.5,
@@ -327,7 +327,7 @@ export default defineComponent({
 }
 
 .preloader {
-  background: var(--primary);
+  background: var(--lighter);
   position: fixed;
   top: 0;
   left: 0;
@@ -338,9 +338,9 @@ export default defineComponent({
   justify-content: center;
 }
 
-.lightCyan-slider,
-.persianGreen-slider,
-.white-slider {
+.lightBlue-slider,
+.dark-blue-slider,
+.darker-blue-slider {
   position: fixed;
   top: 0;
   left: 0;
@@ -349,16 +349,16 @@ export default defineComponent({
   transform: translateX(-100%);
 }
 
-.lightCyan-slider {
-  background: var(--input);
-}
-
-.persianGreen-slider {
+.lightBlue-slider {
   background: var(--button);
 }
 
-.white-slider {
-  background: var(--lighter);
+.dark-blue-slider {
+  background: var(--input);
+}
+
+.darker-blue-slider {
+  background: var(--primary);
 }
 
 @media screen and (max-width: 965px) {
