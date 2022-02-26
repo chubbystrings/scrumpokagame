@@ -1,4 +1,16 @@
 <template>
+  <div>
+    <div class="first-screen">
+      <div class="welcome-text">
+        <h2>Scrum Poka</h2>
+        <small>A scrum story points interactive game</small>
+      </div>
+      <div :class="`icon hide`" ref="wrapper">
+        <BIconSuitClubFill
+          :style="{ width: '100%', height: '100%', color: '#5692e8' }"
+        />
+      </div>
+    </div>
     <div class="contact-wrapper" ref="contactWrapper">
       <div class="contact-info">
         <div class="contact-header">
@@ -56,6 +68,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -63,10 +76,12 @@ import { computed, defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import socket from "@/services/socket.service";
 import { avatars } from "@/utils/avatars";
+import { BIconSuitClubFill } from "bootstrap-icons-vue";
+import gsap from "gsap";
 
 export default defineComponent({
   components: {
-    //
+    BIconSuitClubFill,
   },
   setup() {
     const team = ref("");
@@ -77,7 +92,69 @@ export default defineComponent({
     const clicked = ref(false);
 
     onMounted(() => {
-     //
+      const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+      const preloader = document.querySelector(".first-screen");
+      const main = document.querySelector(".contact-wrapper");
+      const icon = document.querySelector(".hide") as HTMLDivElement;
+      const text = document.querySelector(".welcome-text");
+
+      gsap.to(icon, {
+        delay: 5,
+        scale: 1.2,
+        repeat: -1,
+        ease: "Elastic.easeOut",
+        // ease: Elastic.easeOut,
+        // ease: Elastic.easeOut.config(1.75, 1),
+        yoyo: true,
+        duration: 1,
+      });
+
+      tl.fromTo(
+        text,
+        {
+          opacity: 0,
+        },
+        {
+          delay: 0.5,
+          duration: 2,
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        icon,
+        {
+          opacity: 0,
+          y: -100,
+        },
+        {
+          duration: 6,
+          y: 0,
+          opacity: 1,
+          ease: "bounce.out",
+        }
+
+      )
+        .to(
+          preloader,
+          {
+            x: "200%",
+            delay: 3,
+            duration: 1,
+          },
+          "-=1.5"
+        )
+
+        .fromTo(
+          main,
+          {
+            opacity: 0,
+            
+          },
+          {
+            opacity: 1,
+            
+          }
+        );
     });
 
     const callback = (room: string) => {
@@ -124,6 +201,30 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+.first-screen {
+  background: var(--primary);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  z-index: 100000001;
+}
+.welcome-text {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100px;
+  bottom: 0;
+}
+
+.welcome-text h2 {
+  font-weight: 900;
+  font-size: 50px;
+}
 .contact-wrapper {
   display: grid;
   place-items: center;
@@ -135,21 +236,12 @@ export default defineComponent({
 
 .icon {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   display: grid;
   place-items: center;
   background-color: transparent;
-}
-.hide {
-  opacity: 0;
-  color: #03a6a6;
-  font-weight: lighter;
-}
-.prl-logo {
-  font-family: "Abril Fatface", cursive;
-  font-size: 1.3rem;
-  z-index: 2;
+  z-index: 1000000;
 }
 
 .preloader {
@@ -164,28 +256,6 @@ export default defineComponent({
   justify-content: center;
 }
 
-.lightCyan-slider,
-.persianGreen-slider,
-.white-slider {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateX(-100%);
-}
-
-.lightCyan-slider {
-  background: var(--input);
-}
-
-.persianGreen-slider {
-  background: var(--button);
-}
-
-.white-slider {
-  background: var(--lighter)
-}
 .contact-info {
   width: 45%;
   display: grid;
@@ -258,8 +328,6 @@ select {
 .selectedAvatar {
   filter: blur(1px);
 }
-
-
 
 @media only screen and (min-width: 1024px) {
   .contact-card label {
