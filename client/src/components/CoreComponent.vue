@@ -3,9 +3,9 @@
     <div class="preloader" ref="preloader">
       <div class="prl-logo">
         <div :class="`clubs-icon hide`" ref="wrapper">
-          <BIconSuitClubFill
+          <!-- <BIconSuitClubFill
             :style="{ width: '100%', height: '100%', color: '#5692e8' }"
-          />
+          /> -->
         </div>
       </div>
       <div class="lightBlue-slider" ref="lightBlueSlider"></div>
@@ -83,6 +83,9 @@ import Footer from "./Footer.vue";
 import { START_MODAL, END_MODAL } from "@/utils/ModalNames";
 import GenerateLink from "./ui/GenrateLink.vue";
 import { BIconSuitClubFill } from "bootstrap-icons-vue";
+import { TextPlugin } from "gsap/TextPlugin";
+
+
 
 export default defineComponent({
   components: {
@@ -95,7 +98,7 @@ export default defineComponent({
     GameIsLive,
     NoPointsComponent,
     GenerateLink,
-    BIconSuitClubFill,
+    //BIconSuitClubFill,
   },
   setup() {
     const isJoinedSession = ref(false);
@@ -103,6 +106,7 @@ export default defineComponent({
     const store = useStore();
     const { reveal } = storeToRefs(store);
     const isStarted = ref(false);
+    gsap.registerPlugin(TextPlugin);
 
     const isReveal = computed(() => reveal.value.reveal);
     const users = computed(() => store.getAllUsers);
@@ -152,19 +156,35 @@ export default defineComponent({
       const darkerBlueSlider = document.querySelector(".darker-blue-slider");
       const hide = document.querySelector(".hide");
       const preloader = document.querySelector(".preloader");
-      const main = document.querySelector(".main");
+      const main = document.querySelector(".main") as HTMLDivElement
+      main.style.opacity = '0'
 
-      gsap.to(hide, {
-        scale: 1.2,
-        repeat: -1,
-        ease: "Elastic.easeOut",
-        // ease: Elastic.easeOut,
-        // ease: Elastic.easeOut.config(1.75, 1),
-        yoyo: true,
-        duration: 1,
+      // gsap.to(hide, {
+      //   scale: 1.2,
+      //   repeat: -1,
+      //   ease: "Elastic.easeOut",
+      //   // ease: Elastic.easeOut,
+      //   // ease: Elastic.easeOut.config(1.75, 1),
+      //   yoyo: true,
+      //   duration: 1,
+      // });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power1.out" },
+        onReverseComplete: () => {
+          gsap.to(preloader, {
+            x: "-200%",
+            duration: 2,
+          });
+          gsap.to(
+            main,
+            {
+              delay: 1,
+              opacity: 1,
+            }
+          );
+        },
       });
-
-      const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
 
       tl.to(lightBlueSlider, {
         x: "-10%",
@@ -193,23 +213,13 @@ export default defineComponent({
         x: "0%",
         duration: 5,
         opacity: 1,
-      });
-
-      tl.to(preloader, {
-        x: "200%",
-        duration: 3,
-      });
-
-      tl.fromTo(
-        main,
-        {
-          opacity: 0,
+        text:"Let the games begin!",
+        repeatDelay:1, 
+        yoyo:true,
+        onComplete: () => {
+          tl.reverse();
         },
-        {
-          opacity: 1,
-        },
-        "-=1.2"
-      );
+      });
 
       window.onbeforeunload = function (e: BeforeUnloadEvent) {
         e = e || window.event;
@@ -307,18 +317,19 @@ export default defineComponent({
   top: 110px;
 }
 
-.clubs-icon {
+/* .clubs-icon {
   border-radius: 50%;
   width: 200px;
   height: 200px;
   display: grid;
   place-items: center;
   background-color: transparent;
-}
+} */
 .hide {
   opacity: 0;
-  color: #03a6a6;
-  font-weight: lighter;
+  color: var(--button);
+  font-weight: 900;
+  font-size: 45px;
 }
 .prl-logo {
   font-family: "Abril Fatface", cursive;

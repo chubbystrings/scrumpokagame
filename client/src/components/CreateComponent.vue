@@ -92,7 +92,15 @@ export default defineComponent({
     const clicked = ref(false);
 
     onMounted(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power1.out" }, onReverseComplete: () => { 
+        gsap.to(
+          preloader,
+          {
+            x: "200%",
+            duration: 1,
+          },
+        )
+      } });
       const preloader = document.querySelector(".first-screen");
       const main = document.querySelector(".contact-wrapper");
       const icon = document.querySelector(".hide") as HTMLDivElement;
@@ -108,6 +116,8 @@ export default defineComponent({
         yoyo: true,
         duration: 1,
       });
+
+  
 
       tl.fromTo(
         text,
@@ -127,34 +137,28 @@ export default defineComponent({
           y: -100,
         },
         {
-          duration: 6,
+          duration: tl.reversed() ? 1 : 6,
           y: 0,
           opacity: 1,
           ease: "bounce.out",
-        }
+          onComplete: () => { tl.reverse()},
+        }, 
 
       )
-        .to(
-          preloader,
-          {
-            x: "200%",
-            delay: 3,
-            duration: 1,
-          },
-          "-=1.5"
-        )
+       
+  
 
-        .fromTo(
-          main,
-          {
-            opacity: 0,
+        // .fromTo(
+        //   main,
+        //   {
+        //     opacity: 0,
             
-          },
-          {
-            opacity: 1,
+        //   },
+        //   {
+        //     opacity: 1,
             
-          }
-        );
+        //   }
+        // );
     });
 
     const callback = (room: string) => {
