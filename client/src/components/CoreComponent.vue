@@ -85,8 +85,6 @@ import GenerateLink from "./ui/GenrateLink.vue";
 import { BIconSuitClubFill } from "bootstrap-icons-vue";
 import { TextPlugin } from "gsap/TextPlugin";
 
-
-
 export default defineComponent({
   components: {
     Header,
@@ -156,8 +154,8 @@ export default defineComponent({
       const darkerBlueSlider = document.querySelector(".darker-blue-slider");
       const hide = document.querySelector(".hide");
       const preloader = document.querySelector(".preloader");
-      const main = document.querySelector(".main") as HTMLDivElement
-      main.style.opacity = '0'
+      const main = document.querySelector(".main") as HTMLDivElement;
+      main.style.opacity = "0";
 
       // gsap.to(hide, {
       //   scale: 1.2,
@@ -176,13 +174,10 @@ export default defineComponent({
             x: "-200%",
             duration: 2,
           });
-          gsap.to(
-            main,
-            {
-              delay: 1,
-              opacity: 1,
-            }
-          );
+          gsap.to(main, {
+            delay: 1,
+            opacity: 1,
+          });
         },
       });
 
@@ -213,9 +208,9 @@ export default defineComponent({
         x: "0%",
         duration: 5,
         opacity: 1,
-        text:"Let the games begin!",
-        repeatDelay:1, 
-        yoyo:true,
+        text: "Let the games begin!",
+        repeatDelay: 1,
+        yoyo: true,
         onComplete: () => {
           tl.reverse();
         },
@@ -386,6 +381,10 @@ export default defineComponent({
   .card-wrapper {
     margin-top: 160px;
   }
+
+  .hide {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-width: 825px) {
@@ -393,11 +392,18 @@ export default defineComponent({
     grid-template-columns: 1fr 1fr;
     row-gap: 25px;
   }
+
+  .hide {
+    font-size: 25px;
+  }
 }
 
 @media screen and (max-width: 625px) {
   .card-wrapper {
     grid-template-columns: 1fr;
+  }
+  .hide {
+    font-size: 15px;
   }
 }
 </style>

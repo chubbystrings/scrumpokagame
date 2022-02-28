@@ -42,8 +42,6 @@ export default defineComponent({
 
     const isEmpty = computed(() => link.value.trim() === "");
 
-    console.log(isEmpty.value);
-
     const handleClick = (e: HTMLInputEvent) => {
       document.getElementById("inputRef")?.focus();
       document.execCommand("copy");
@@ -59,10 +57,10 @@ export default defineComponent({
       const url = href.includes("localhost")
         ? href.replace("localhost", "127.0.0.1")
         : href;
-      console.log(url);
+
       try {
         const res = await axiosInstance.post("/link", { url });
-        console.log(res.data);
+
         link.value = res.data.url;
       } catch (error) {
         console.log(error);
