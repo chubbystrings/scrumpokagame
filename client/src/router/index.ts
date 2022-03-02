@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   
   {
-    path: "/session/:id",
+    path: "/:id",
     name: "Session",
     beforeEnter: (to, from, next) => {
       let bool: boolean;
