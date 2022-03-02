@@ -67,7 +67,7 @@ export default defineComponent({
         avatar: selectedAvatar.value,
       };
       socket.joinRoom(user.username, user.room as string, user.avatar, () => {
-        router.push(`/session/${user.room}`);
+        router.push(`/${user.room}`);
       });
       // context.emit("join", user);
     };

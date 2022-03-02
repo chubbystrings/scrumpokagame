@@ -163,7 +163,7 @@ export default defineComponent({
 
     const callback = (room: string) => {
       clicked.value = false;
-      router.push(`/session/${room}`);
+      router.push(`/${room}`);
     };
 
     const handleCreate = () => {
