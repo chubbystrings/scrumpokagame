@@ -13,6 +13,7 @@ const useSocketService = () => {
   const rooms = new Rooms();
   const ticketInstance = new Ticket();
   const colors = ["red", "black"];
+  const timeout = 30
 
   const pokerNames = [
     "BIconSuitClubFill",
@@ -81,6 +82,10 @@ const useSocketService = () => {
             );
 
             socket.join(user!.room);
+            rooms.startTimer(timeout, () => {
+              rooms.clearTimer()
+             socket.emit('timeout')
+            })
 
             io.to(user?.room as string).emit("all-users", {
               room: user?.room,
@@ -91,8 +96,24 @@ const useSocketService = () => {
 
             callback(null, user);
           })();
-        }
+        } 
       );
+
+      socket.on("timeout-response", ({ room, response}, callback) => {
+       (async () => {
+        if (response) {
+          callback()
+          rooms.startTimer(timeout, () => {
+            rooms.clearTimer();
+           socket.emit('timeout')
+          })
+        } else {
+          await usersInstance.endSession(room);
+          callback()
+          socket.broadcast.to(room as string).emit("session-end");
+        }
+       })()
+      })
 
       //listens to event to confirm room is available
       socket.on("confirm-room", (room, callback) => {
@@ -182,6 +203,11 @@ const useSocketService = () => {
             user?.room as string
           );
 
+          rooms.restartTimer(timeout, () => {
+            rooms.clearTimer();
+           socket.emit('timeout')
+          })
+
           const { pointsData } = await points.getAllPoints(
             user?.room as string
           );
@@ -221,6 +247,8 @@ const useSocketService = () => {
           if (error) {
             return callback(error, null);
           }
+
+          
 
           const { pointsData } = await points.getAllPoints(
             user?.room as string
@@ -265,6 +293,11 @@ const useSocketService = () => {
             return callback(error, null);
           }
 
+          rooms.restartTimer(timeout, () => {
+            rooms.clearTimer();
+           socket.emit('timeout')
+          })
+
           const { pointsData } = await points.getAllPoints(
             ticketData?.room as string
           );
@@ -302,8 +335,15 @@ const useSocketService = () => {
       // listen for event to Reveal room points
       socket.on("reveal-points", ({ room }, callback) => {
         (async () => {
+          rooms.restartTimer(timeout, () => {
+            rooms.clearTimer();
+           socket.emit('timeout')
+          })
+          
           const { user } = await usersInstance.getUser(socket.id);
           const { reveal } = await ticketInstance.revealPointsInTicket(room);
+
+          
 
           io.to(user?.room as string).emit("notification", {
             message: `${user?.username} has revealed the results`,

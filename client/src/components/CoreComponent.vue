@@ -63,7 +63,7 @@ import {
   computed,
   watch,
   onMounted,
-  onBeforeMount,
+  onBeforeUnmount,
 } from "vue";
 import gsap from "gsap";
 import { storeToRefs } from "pinia";
@@ -216,7 +216,7 @@ export default defineComponent({
         },
       });
 
-      window.onbeforeunload = function (e: BeforeUnloadEvent) {
+      window.addEventListener('beforeunload', function (e: BeforeUnloadEvent) {
         e = e || window.event;
 
         if (e) {
@@ -224,8 +224,14 @@ export default defineComponent({
         }
 
         return "Sure?";
-      };
+      })
     });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('beforeunload', function () { 
+        //
+      })
+    })
 
     watch([isReveal], () => {
       if (isReveal.value) {

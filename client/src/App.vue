@@ -35,9 +35,9 @@ import { useStore } from "./store";
 import StartModal from "@/components/StartModal.vue";
 import EndModal from "@/components/EndModal.vue";
 import SessionEndModal from "@/components/SessionEndModal.vue";
+import TimeoutModal from '@/components/TimeoutModal.vue'
 import Notify from "@/components/ui/Notify.vue";
 import gsap from "gsap";
-import { END_MODAL } from "./utils/ModalNames";
 
 export default defineComponent({
   components: {
@@ -45,6 +45,7 @@ export default defineComponent({
     EndModal,
     Notify,
     SessionEndModal,
+    TimeoutModal
   },
   setup() {
     const store = useStore();
@@ -81,6 +82,7 @@ export default defineComponent({
 
     onMounted(() => {
       socket.setupSocketConnection();
+      
     });
 
     watchEffect(() => {

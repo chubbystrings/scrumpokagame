@@ -122,6 +122,11 @@ export default defineComponent({
   padding: 10px;
 }
 
+.contact-inputs input {
+  padding: 0px 10px; 
+  box-sizing: border-box
+}
+
 .contact-inputs input,
 select {
   background: var(--input);

@@ -19,6 +19,14 @@ type ROOM = {
 
 class Rooms {
 
+  expiry;
+  timer: NodeJS.Timer | null
+
+  constructor () {
+    this.expiry = 0;
+    this.timer = null
+  }
+
   // create a new room/session
   async addRoom(room: ROOM) {
     try {
@@ -58,6 +66,27 @@ class Rooms {
 
   removeRoom(room: string) {
     // delete this.rooms[room]
+  }
+
+  startTimer(expiryTime: number, callback: () => void) {
+    this.timer = setInterval(() => {
+     
+      if (this.expiry === expiryTime) {
+        return callback()
+      }
+
+      this.expiry += 1
+    }, 1000)
+  }
+
+  clearTimer() {
+    clearInterval(this.timer as NodeJS.Timer)
+    this.expiry = 0
+  }
+
+  restartTimer(expiryTime: number, callback: () => void) {
+    this.clearTimer();
+    this.startTimer(expiryTime, callback)
   }
 
 }

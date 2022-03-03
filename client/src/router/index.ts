@@ -42,7 +42,6 @@ const routes: Array<RouteRecordRaw> = [
         } 
         socket.confirmUser((confirm) => {
           if (confirm) {
-            console.log(confirm)
             next()
           } else {
             next(`/${to.params.id}/join`)
