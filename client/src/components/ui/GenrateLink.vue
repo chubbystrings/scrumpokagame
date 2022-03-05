@@ -36,10 +36,6 @@ export default defineComponent({
       target: HTMLInputElement & EventTarget;
     }
 
-    onMounted(() => {
-      console.log(window.location.href);
-    });
-
     const isEmpty = computed(() => link.value.trim() === "");
 
     const handleClick = (e: HTMLInputEvent) => {

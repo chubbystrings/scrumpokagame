@@ -29,7 +29,7 @@ export default defineComponent({
     right: 5px;
     width: 100px;
     height: 150px;
-    z-index: 10000;
+    z-index: 100;
 }
 
 </style>

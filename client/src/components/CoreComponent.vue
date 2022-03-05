@@ -63,7 +63,7 @@ import {
   computed,
   watch,
   onMounted,
-  onBeforeMount,
+  onBeforeUnmount,
 } from "vue";
 import gsap from "gsap";
 import { storeToRefs } from "pinia";
@@ -141,12 +141,18 @@ export default defineComponent({
     };
 
     const handleStart = () => {
+      socket.restart(currentUser.value.room);
       store.openModal(START_MODAL);
     };
 
     const handleShowWinningCard = () => {
       store.openModal(END_MODAL);
     };
+
+    // const beforeUnloadListener = (event: BeforeUnloadEvent) => {
+    //   event.preventDefault();
+    //   return (event.returnValue = "Are you sure you want to exit?");
+    // };
 
     onMounted(() => {
       const lightBlueSlider = document.querySelector(".lightBlue-slider");
@@ -215,16 +221,6 @@ export default defineComponent({
           tl.reverse();
         },
       });
-
-      window.onbeforeunload = function (e: BeforeUnloadEvent) {
-        e = e || window.event;
-
-        if (e) {
-          e.returnValue = "Sure?";
-        }
-
-        return "Sure?";
-      };
     });
 
     watch([isReveal], () => {
@@ -238,8 +234,10 @@ export default defineComponent({
     watch([ticketName], () => {
       if (ticketName.value) {
         isStarted.value = true;
+        // addEventListener('beforeunload', beforeUnloadListener, {capture: true});
       } else {
         isStarted.value = false;
+        // removeEventListener('beforeunload', beforeUnloadListener, {capture: true});
       }
     });
 

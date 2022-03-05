@@ -2,7 +2,8 @@ import { io } from "socket.io-client";
 import { POINT, REVEAL, TICKET, USER, ROOM } from "../types/types";
 import { useStore } from "../store";
 import { setUser } from "@/utils/localStorage";
-import { SESSION_END } from "@/utils/ModalNames";
+import { SESSION_END, TIME_OUT } from "@/utils/ModalNames";
+import { stringifyQuery } from "vue-router";
 
 class SocketioService {
   socket: any;
@@ -121,6 +122,14 @@ class SocketioService {
     this.socket.emit('re-start', userRoom)
   }
 
+  timeoutResponse(room: string, response: boolean, callback: () => void) {
+    const roomTimeout = {
+      room, 
+      response
+    }
+    this.socket.emit('timeout-response', roomTimeout, callback)
+  }
+
   revealPoint(room: string) {
     const userRoom = {
       room,
@@ -181,6 +190,10 @@ class SocketioService {
 
     this.socket.on("session-end", () => {
       store.openModal(SESSION_END)
+    })
+
+    this.socket.on('timeout', () => {
+      store.openModal(TIME_OUT)
     })
   }
 }

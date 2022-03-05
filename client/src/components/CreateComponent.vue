@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted } from "vue";
+import { computed, defineComponent, ref, onMounted, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import socket from "@/services/socket.service";
 import { avatars } from "@/utils/avatars";
@@ -92,15 +92,15 @@ export default defineComponent({
     const clicked = ref(false);
 
     onMounted(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power1.out" }, onReverseComplete: () => { 
-        gsap.to(
-          preloader,
-          {
+      const tl = gsap.timeline({
+        defaults: { ease: "power1.out" },
+        onReverseComplete: () => {
+          gsap.to(preloader, {
             x: "200%",
             duration: 1,
-          },
-        )
-      } });
+          });
+        },
+      });
       const preloader = document.querySelector(".first-screen");
       const main = document.querySelector(".contact-wrapper");
       const icon = document.querySelector(".hide") as HTMLDivElement;
@@ -117,8 +117,6 @@ export default defineComponent({
         duration: 1,
       });
 
-  
-
       tl.fromTo(
         text,
         {
@@ -129,8 +127,7 @@ export default defineComponent({
           duration: 2,
           opacity: 1,
         }
-      )
-      .fromTo(
+      ).fromTo(
         icon,
         {
           opacity: 0,
@@ -141,25 +138,28 @@ export default defineComponent({
           y: 0,
           opacity: 1,
           ease: "bounce.out",
-          onComplete: () => { tl.reverse()},
-        }, 
+          onComplete: () => {
+            tl.reverse();
+          },
+        }
+      );
 
-      )
-       
-  
+      // .fromTo(
+      //   main,
+      //   {
+      //     opacity: 0,
 
-        // .fromTo(
-        //   main,
-        //   {
-        //     opacity: 0,
-            
-        //   },
-        //   {
-        //     opacity: 1,
-            
-        //   }
-        // );
+      //   },
+      //   {
+      //     opacity: 1,
+
+      //   }
+      // );
+
+
     });
+
+  
 
     const callback = (room: string) => {
       clicked.value = false;
@@ -293,6 +293,11 @@ export default defineComponent({
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+}
+
+.contact-inputs input {
+  padding: 0px 10px;
+  box-sizing: border-box;
 }
 
 .contact-inputs input,
