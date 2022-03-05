@@ -48,6 +48,7 @@ class Users {
       const userData = await savedUser.save();
       return { user: userData };
     } catch (err: any) {
+      console.log(err)
       return {
         error: "could not save user",
       };

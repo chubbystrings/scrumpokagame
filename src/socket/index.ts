@@ -13,7 +13,7 @@ const useSocketService = () => {
   const rooms = new Rooms();
   const ticketInstance = new Ticket();
   const colors = ["red", "black"];
-  const timeout = 30
+  const timeout = 600
 
   const pokerNames = [
     "BIconSuitClubFill",
@@ -339,7 +339,7 @@ const useSocketService = () => {
             rooms.clearTimer();
            socket.emit('timeout')
           })
-          
+
           const { user } = await usersInstance.getUser(socket.id);
           const { reveal } = await ticketInstance.revealPointsInTicket(room);
 
@@ -367,9 +367,12 @@ const useSocketService = () => {
         (async () => {
           const { user } = await usersInstance.getUser(socket.id);
           const { users } = await usersInstance.getUsers(user?.room as string);
+         
           if (user) {
             if (user?.type === "author" || users.length === 0) {
+              await usersInstance.removeUser(socket.id, user?.room as string);
               await usersInstance.endSession(user?.room as string);
+              rooms.clearTimer();
               io.to(user?.room as string).emit("session-end");
             } else {
               const { updatedUsers } = await usersInstance.removeUser(socket.id, user?.room as string);

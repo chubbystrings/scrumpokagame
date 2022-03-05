@@ -156,9 +156,7 @@ export default defineComponent({
       //   }
       // );
 
-      window.removeEventListener("beforeunload", function () {
-        //
-      });
+
     });
 
   

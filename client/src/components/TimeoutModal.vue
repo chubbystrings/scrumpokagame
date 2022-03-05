@@ -46,6 +46,7 @@ export default defineComponent({
       socket.timeoutResponse(store.getCurrentUser.room, false, () => {
         clearInterval(timer);
         store.closeModal();
+        store.$reset()
         router.replace("/");
       });
     };
