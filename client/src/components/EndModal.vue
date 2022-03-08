@@ -35,9 +35,9 @@
       </div>
     </template>
     <template v-slot:actions>
-      <div class="action-btn-wrapper" v-if="userType">
+      <div class="action-btn-wrapper" >
         <button class="btn" @click="handleBack">Back</button>
-        <button class="btn" @click="handleRestart">Restart</button>
+        <button v-if="userType" class="btn" @click="handleRestart">Restart</button>
       </div>
     </template>
   </Modal>

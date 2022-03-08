@@ -107,7 +107,7 @@ export default defineComponent({
       const text = document.querySelector(".welcome-text");
 
       gsap.to(icon, {
-        delay: 5,
+        delay: 2.5,
         scale: 1.2,
         repeat: -1,
         ease: "Elastic.easeOut",
@@ -123,8 +123,7 @@ export default defineComponent({
           opacity: 0,
         },
         {
-          delay: 0.5,
-          duration: 2,
+          duration: 1.5,
           opacity: 1,
         }
       ).fromTo(
@@ -134,7 +133,7 @@ export default defineComponent({
           y: -100,
         },
         {
-          duration: tl.reversed() ? 1 : 6,
+          duration: tl.reversed() ? 1 : 2,
           y: 0,
           opacity: 1,
           ease: "bounce.out",
