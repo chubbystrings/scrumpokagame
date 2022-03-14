@@ -13,7 +13,7 @@ const useSocketService = () => {
   const rooms = new Rooms();
   const ticketInstance = new Ticket();
   const colors = ["red", "black"];
-  const timeout = 600
+  const timeout = 1200
 
   const pokerNames = [
     "BIconSuitClubFill",
