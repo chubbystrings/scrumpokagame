@@ -8,12 +8,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Tab from "./ui/Hamburger.vue";
-import TogglePoints from './ui/PointsToggle.vue'
+import TogglePoints from "./ui/PointsToggle.vue";
 
 export default defineComponent({
   components: {
     Tab,
-    TogglePoints
+    TogglePoints,
   },
 
   setup() {

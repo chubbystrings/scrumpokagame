@@ -17,9 +17,9 @@ const routes: Array<RouteRecordRaw> = [
       socket.confirmRoom(to.params.id as string, (b) => {
         bool = b;
         if (!bool) {
-           next('/');
+          next("/");
         } else {
-          next()
+          next();
         }
       });
     },
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "session" */ "../views/Join.vue"),
   },
-  
+
   {
     path: "/:id",
     name: "Session",
@@ -38,15 +38,15 @@ const routes: Array<RouteRecordRaw> = [
       socket.confirmRoom(to.params.id as string, (b) => {
         bool = b;
         if (!bool) {
-          return next('/');
-        } 
+          return next("/");
+        }
         socket.confirmUser((confirm) => {
           if (confirm) {
-            next()
+            next();
           } else {
-            next(`/${to.params.id}/join`)
+            next(`/${to.params.id}/join`);
           }
-        })
+        });
       });
     },
     // route level code-splitting
@@ -57,9 +57,9 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   {
-    path: '/:pathMatch(.*)*', //will match everything and put it under `$route.params.pathMatch`
-    redirect: { name: 'Home' }
-  }
+    path: "/:pathMatch(.*)*", //will match everything and put it under `$route.params.pathMatch`
+    redirect: { name: "Home" },
+  },
 ];
 
 const router = createRouter({

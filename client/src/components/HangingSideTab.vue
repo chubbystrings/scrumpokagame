@@ -1,35 +1,34 @@
 <template>
-    <div class="side-tab" v-if="isOpen">
-        <Pills />
-    </div>
+  <div class="side-tab" v-if="isOpen">
+    <Pills />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed } from "vue";
 import Pills from "./Pills.vue";
-import { useStore } from '@/store'
+import { useStore } from "@/store";
 
 export default defineComponent({
-    components: {
-        Pills
-    },
-    setup () {
-        const store = useStore()
-        const isOpen = computed(() => store.getHangingPointsStatus)
+  components: {
+    Pills,
+  },
+  setup() {
+    const store = useStore();
+    const isOpen = computed(() => store.getHangingPointsStatus);
 
-        return {isOpen}
-    }
-})
+    return { isOpen };
+  },
+});
 </script>
 
 <style scoped>
 .side-tab {
-    position: fixed;
-    top: -40px;
-    right: 5px;
-    width: 100px;
-    height: 150px;
-    z-index: 100;
+  position: fixed;
+  top: -40px;
+  right: 5px;
+  width: 100px;
+  height: 150px;
+  z-index: 100;
 }
-
 </style>

@@ -5,19 +5,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref} from "vue";
+import { computed, defineComponent, ref } from "vue";
 import { useStore } from "../store";
 
 export default defineComponent({
   setup() {
     const store = useStore();
- 
-
-   
 
     const team = computed(() => store.getTeamName);
 
-    return { team};
+    return { team };
   },
 });
 </script>
@@ -42,5 +39,4 @@ export default defineComponent({
   width: 300px;
   height: 100px;
 }
-
 </style>

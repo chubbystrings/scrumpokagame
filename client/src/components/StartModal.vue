@@ -9,7 +9,9 @@
     <template v-slot:actions>
       <div class="action-btn-wrapper">
         <button class="btn" @click="handleCancel">Cancel</button>
-        <button  class="btn" :disabled="isEmptyTicketName" @click="handleStart">Start</button>
+        <button class="btn" :disabled="isEmptyTicketName" @click="handleStart">
+          Start
+        </button>
       </div>
     </template>
   </Modal>
@@ -29,19 +31,19 @@ export default defineComponent({
     const ticket = ref("");
     const store = useStore();
 
-    const isEmptyTicketName = computed(() => ticket.value.trim() === '')
+    const isEmptyTicketName = computed(() => ticket.value.trim() === "");
 
     const handleCancel = () => {
       store.closeModal();
     };
 
     const handleStart = () => {
-        const details = {
-            name: ticket.value,
-            room: store.getCurrentUser.room,
-            team: store.getCurrentUser.team,
-            author: store.getCurrentUser.username
-        }
+      const details = {
+        name: ticket.value,
+        room: store.getCurrentUser.room,
+        team: store.getCurrentUser.team,
+        author: store.getCurrentUser.username,
+      };
       socket.addTicket(details);
       store.closeModal();
     };
@@ -69,13 +71,13 @@ export default defineComponent({
 }
 
 @media screen and (max-width: 475px) {
-     h2 {
+  h2 {
     font-size: 17px !important;
   }
 }
 
 @media screen and (max-width: 375px) {
-     h2 {
+  h2 {
     font-size: 11px !important;
   }
 }

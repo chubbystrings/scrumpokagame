@@ -1,34 +1,33 @@
 <template>
-    <div class="wrapper" v-if="isLive">
-        <div class="icon" @click="handleClick">
-            <BIconSuitClubFill :style="{ width: '100%', height: '100%', color: '#5692e8' }" />
-        </div>
+  <div class="wrapper" v-if="isLive">
+    <div class="icon" @click="handleClick">
+      <BIconSuitClubFill
+        :style="{ width: '100%', height: '100%', color: '#5692e8' }"
+      />
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useStore} from '@/store';
-import {
-  
-  BIconSuitClubFill,
-} from "bootstrap-icons-vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
+import { BIconSuitClubFill } from "bootstrap-icons-vue";
 
 export default defineComponent({
-    components: {
-        BIconSuitClubFill,
-    },
-    setup () {
-        const store = useStore()
-        const handleClick = () => {
-            store.toggleHangingPoints()
-        }
+  components: {
+    BIconSuitClubFill,
+  },
+  setup() {
+    const store = useStore();
+    const handleClick = () => {
+      store.toggleHangingPoints();
+    };
 
-        const isLive = computed(() => !!store.getCurrentTicketName)
+    const isLive = computed(() => !!store.getCurrentTicketName);
 
-        return { handleClick, isLive}
-    }
-})
+    return { handleClick, isLive };
+  },
+});
 </script>
 
 <style scoped>
@@ -43,17 +42,16 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--primary)
+  border: 1px solid var(--primary);
 }
 
 .icon {
-   
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    background-color: transparent;
-    cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background-color: transparent;
+  cursor: pointer;
 }
 </style>

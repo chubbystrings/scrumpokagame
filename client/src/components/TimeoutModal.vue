@@ -26,7 +26,7 @@ import { useRouter } from "vue-router";
 import Modal from "./ui/Modal.vue";
 import { useStore } from "@/store";
 import socket from "../services/socket.service";
-import { TIME_OUT } from "@/utils/ModalNames"
+import { TIME_OUT } from "@/utils/ModalNames";
 
 export default defineComponent({
   components: {
@@ -46,7 +46,7 @@ export default defineComponent({
       socket.timeoutResponse(store.getCurrentUser.room, false, () => {
         clearInterval(timer);
         store.closeModal();
-        store.$reset()
+        store.$reset();
         router.replace("/");
       });
     };
@@ -56,8 +56,6 @@ export default defineComponent({
         store.closeModal();
       });
     };
-
-
 
     watchEffect(() => {
       if (isMounted.value) {

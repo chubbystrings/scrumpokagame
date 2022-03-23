@@ -52,7 +52,6 @@ export default defineComponent({
   padding-left: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background: var(--input);
-  
 }
 
 .avatars-wrapper {
@@ -66,8 +65,6 @@ export default defineComponent({
   padding-bottom: 20px;
   box-sizing: border-box;
 }
-
-
 
 @media screen and (max-width: 925px) {
   .left-side-bar {

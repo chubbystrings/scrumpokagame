@@ -1,6 +1,13 @@
 // stores/counter.js
 import { defineStore } from "pinia";
-import { USER, POINT, REVEAL, TICKET, NOTIFICATION, FIBONACCI } from "../types/types";
+import {
+  USER,
+  POINT,
+  REVEAL,
+  TICKET,
+  NOTIFICATION,
+  FIBONACCI,
+} from "../types/types";
 
 export const useStore = defineStore("user", {
   state: () => {
@@ -18,7 +25,7 @@ export const useStore = defineStore("user", {
       notification: {} as NOTIFICATION,
       fibonacci: [] as FIBONACCI[],
       sideBarOpen: false,
-      hangingPointsIsOpen: true
+      hangingPointsIsOpen: true,
     };
   },
   // could also be defined as
@@ -33,7 +40,7 @@ export const useStore = defineStore("user", {
     },
 
     setFibonacci(data: FIBONACCI[]) {
-      this.fibonacci = data
+      this.fibonacci = data;
     },
 
     setPoints(points: POINT[]) {
@@ -51,7 +58,7 @@ export const useStore = defineStore("user", {
     },
 
     setCurrentTicket(ticket: TICKET) {
-      this.currentTicket = ticket ? ticket.name : '';
+      this.currentTicket = ticket ? ticket.name : "";
     },
 
     openModal(name: string) {
@@ -71,23 +78,23 @@ export const useStore = defineStore("user", {
     setNotification(message: string) {
       this.notification = {
         message,
-        show: true
-      }
+        show: true,
+      };
       setTimeout(() => {
         this.notification = {
-          message: '',
-          show: false
-        }
+          message: "",
+          show: false,
+        };
       }, 2000);
     },
 
     toggleSideBar() {
-      this.sideBarOpen = !this.sideBarOpen
+      this.sideBarOpen = !this.sideBarOpen;
     },
 
-    toggleHangingPoints () {
-      this.hangingPointsIsOpen = !this.hangingPointsIsOpen
-    }
+    toggleHangingPoints() {
+      this.hangingPointsIsOpen = !this.hangingPointsIsOpen;
+    },
   },
 
   getters: {
@@ -95,16 +102,16 @@ export const useStore = defineStore("user", {
       return state.users;
     },
 
-   getAuthor(state) {
-     return state.users.find((user) => user.type === 'author')
-   },
+    getAuthor(state) {
+      return state.users.find((user) => user.type === "author");
+    },
 
     getCurrentUser(state) {
-      return state.currentUser
+      return state.currentUser;
     },
 
     getFibonacci(state) {
-      return state.fibonacci
+      return state.fibonacci;
     },
 
     getAllPoints(state) {
@@ -128,14 +135,14 @@ export const useStore = defineStore("user", {
       return state.isModalOpen.component;
     },
 
-    getNotificationStatus (state) {
-      return state.notification
+    getNotificationStatus(state) {
+      return state.notification;
     },
-    getSideBarStatus (state) {
-      return state.sideBarOpen
+    getSideBarStatus(state) {
+      return state.sideBarOpen;
     },
     getHangingPointsStatus(state) {
-      return state.hangingPointsIsOpen
-    }
+      return state.hangingPointsIsOpen;
+    },
   },
 });

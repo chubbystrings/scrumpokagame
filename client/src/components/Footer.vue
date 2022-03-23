@@ -20,7 +20,7 @@ export default defineComponent({
 <style scoped>
 .footer {
   position: absolute;
-  bottom:80px;
+  bottom: 80px;
   display: grid;
   place-items: center;
   right: 5px;
@@ -34,9 +34,9 @@ p {
 
 @media screen and (max-width: 925px) {
   .footer {
-  left: 0;
-  bottom: 70px;
-  right: 0;
-}
+    left: 0;
+    bottom: 70px;
+    right: 0;
+  }
 }
 </style>
