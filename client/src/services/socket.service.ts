@@ -39,7 +39,7 @@ class SocketioService {
       team,
       username,
       avatar,
-      highestNumber
+      highestNumber,
     };
     this.socket.emit("create", userDetail, (error: string, user: USER) => {
       if (error) {
@@ -48,7 +48,7 @@ class SocketioService {
       }
       store.setCurrentUser(user);
       setUser(user, "author");
-      
+
       callback(user.room);
     });
   }
@@ -77,11 +77,19 @@ class SocketioService {
     });
   }
 
-  AddPoint({ point, color, icon}: {point: number; color: string; icon: string}) {
+  AddPoint({
+    point,
+    color,
+    icon,
+  }: {
+    point: number;
+    color: string;
+    icon: string;
+  }) {
     const userPoint = {
       point,
       color,
-      icon
+      icon,
     };
 
     this.socket.emit("add-point", userPoint, (error: string, user: USER) => {
@@ -93,13 +101,23 @@ class SocketioService {
     });
   }
 
-  addTicket({name, room, team, author}:{name: string, room: string, team: string, author: string}) {
+  addTicket({
+    name,
+    room,
+    team,
+    author,
+  }: {
+    name: string;
+    room: string;
+    team: string;
+    author: string;
+  }) {
     const store = useStore();
     const roomTicket = {
       name,
       room,
       team,
-      author
+      author,
     };
 
     this.socket.emit(
@@ -119,15 +137,15 @@ class SocketioService {
     const userRoom = {
       room,
     };
-    this.socket.emit('re-start', userRoom)
+    this.socket.emit("re-start", userRoom);
   }
 
   timeoutResponse(room: string, response: boolean, callback: () => void) {
     const roomTimeout = {
-      room, 
-      response
-    }
-    this.socket.emit('timeout-response', roomTimeout, callback)
+      room,
+      response,
+    };
+    this.socket.emit("timeout-response", roomTimeout, callback);
   }
 
   revealPoint(room: string) {
@@ -153,16 +171,16 @@ class SocketioService {
         room,
         users,
         team,
-        roomData
+        roomData,
       }: {
         room: string;
         users: USER[];
         team: string;
-        roomData: ROOM
+        roomData: ROOM;
       }) => {
         store.setUsers(users);
         store.setTeamName(team);
-        store.setFibonacci(roomData.fibonacci)
+        store.setFibonacci(roomData.fibonacci);
       }
     );
 
@@ -184,17 +202,17 @@ class SocketioService {
       store.setCurrentTicket(ticket);
     });
 
-    this.socket.on("notification", ({ message }: {message: string}) => {
-      store.setNotification(message)
-    })
+    this.socket.on("notification", ({ message }: { message: string }) => {
+      store.setNotification(message);
+    });
 
     this.socket.on("session-end", () => {
-      store.openModal(SESSION_END)
-    })
+      store.openModal(SESSION_END);
+    });
 
-    this.socket.on('timeout', () => {
-      store.openModal(TIME_OUT)
-    })
+    this.socket.on("timeout", () => {
+      store.openModal(TIME_OUT);
+    });
   }
 }
 

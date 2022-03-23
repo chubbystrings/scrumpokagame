@@ -11,15 +11,14 @@ import socket from "../services/socket.service";
 import { useStore } from "@/store";
 import Pills from "./Pills.vue";
 
-
 export default defineComponent({
   components: {
     Pills,
   },
   setup() {
-   //
+    //
 
-   return {}
+    return {};
   },
 });
 </script>
@@ -45,7 +44,7 @@ export default defineComponent({
   row-gap: 1rem;
 } */
 
-@media  screen and (max-width: 925px) {
+@media screen and (max-width: 925px) {
   .right-side-bar {
     display: none;
   }

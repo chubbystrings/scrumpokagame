@@ -1,37 +1,29 @@
 <template>
-<transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @leave="leave"
-      appear
-    >
-  <div class="live-game-wrapper">
-    <!-- <h2>Scrum Poker</h2> -->
-    <div class="icon">
-      <BIconSuitClubFill
-        :style="{ width: '100%', height: '100%' }"
-      />
+  <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" appear>
+    <div class="live-game-wrapper">
+      <!-- <h2>Scrum Poker</h2> -->
+      <div class="icon">
+        <BIconSuitClubFill :style="{ width: '100%', height: '100%' }" />
+      </div>
     </div>
-  </div>
   </transition>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { BIconSuitClubFill } from "bootstrap-icons-vue";
-import gsap from 'gsap';
+import gsap from "gsap";
 
 export default defineComponent({
   components: {
     BIconSuitClubFill,
   },
   setup() {
-
     const beforeEnter = (el: HTMLElement) => {
       el.style.opacity = "0";
     };
 
-     const enter = (el: HTMLElement, done: () => void) => {
+    const enter = (el: HTMLElement, done: () => void) => {
       gsap.to(el, {
         opacity: 0.1,
         onComplete: done,
@@ -45,7 +37,7 @@ export default defineComponent({
         opacity: 0,
       });
     };
-    return { enter, leave, beforeEnter};
+    return { enter, leave, beforeEnter };
   },
 });
 </script>

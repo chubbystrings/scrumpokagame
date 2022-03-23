@@ -1,47 +1,45 @@
 <template>
-<transition @before-enter="beforeEnter" @enter="enter" @leave="leave" appear>
-
-  <div class="wrapper">
-    <div class="img-circle">
-      <img :src="user?.avatar ? user.avatar : '/images/default-avatar.png'" />
+  <transition @before-enter="beforeEnter" @enter="enter" @leave="leave" appear>
+    <div class="wrapper">
+      <div class="img-circle">
+        <img :src="user?.avatar ? user.avatar : '/images/default-avatar.png'" />
+      </div>
+      <div>
+        <small class="user--name">{{ user.username }}</small>
+      </div>
     </div>
-    <div>
-      <small class="user--name">{{ user.username }}</small>
-    </div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import gsap from 'gsap';
+import gsap from "gsap";
 
 export default defineComponent({
   props: ["user"],
   setup() {
-
-     const beforeEnter = (el: HTMLElement) => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(-40px)'
-    }
+    const beforeEnter = (el: HTMLElement) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(-40px)";
+    };
 
     const enter = (el: HTMLElement) => {
       gsap.to(el, {
         duration: 1,
         y: 0,
         opacity: 1,
-        ease: 'bounce.out'
-      })
-    }
+        ease: "bounce.out",
+      });
+    };
 
     const leave = (el: HTMLElement) => {
-       gsap.from(el, {
+      gsap.from(el, {
         duration: 1,
         y: -40,
         opacity: 0,
-      })
-    }
-    return { leave, enter, beforeEnter};
+      });
+    };
+    return { leave, enter, beforeEnter };
   },
 });
 </script>
@@ -53,11 +51,9 @@ export default defineComponent({
   gap: 5px;
 }
 
-
 .user--name {
   text-align: center;
 }
-
 
 .img-circle {
   width: 35px;
@@ -74,6 +70,4 @@ export default defineComponent({
   height: 100%;
   border-radius: 50%;
 }
-
-
 </style>

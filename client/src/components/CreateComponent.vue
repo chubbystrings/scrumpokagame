@@ -3,7 +3,8 @@
     <div class="first-screen">
       <div class="welcome-text">
         <h2>Scrum Poka</h2>
-        <small>A scrum story points interactive game</small>
+        <small>A scrum story points interactive game</small><br />
+        <small>Built by Emeka Okwor</small>
       </div>
       <div :class="`icon hide`" ref="wrapper">
         <BIconSuitClubFill
@@ -72,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted, onBeforeMount } from "vue";
+import { computed, defineComponent, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import socket from "@/services/socket.service";
 import { avatars } from "@/utils/avatars";
@@ -102,7 +103,7 @@ export default defineComponent({
         },
       });
       const preloader = document.querySelector(".first-screen");
-      const main = document.querySelector(".contact-wrapper");
+      // const main = document.querySelector(".contact-wrapper");
       const icon = document.querySelector(".hide") as HTMLDivElement;
       const text = document.querySelector(".welcome-text");
 
@@ -154,11 +155,7 @@ export default defineComponent({
 
       //   }
       // );
-
-
     });
-
-  
 
     const callback = (room: string) => {
       clicked.value = false;
@@ -227,6 +224,9 @@ export default defineComponent({
 .welcome-text h2 {
   font-weight: 900;
   font-size: 50px;
+}
+.welcome-text small:last-of-type {
+  font-size: 10px;
 }
 .contact-wrapper {
   display: grid;

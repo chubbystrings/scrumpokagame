@@ -36,7 +36,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--primary)
+  border: 1px solid var(--primary);
 }
 
 .normal .hamburger::before {

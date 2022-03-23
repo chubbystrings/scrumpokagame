@@ -23,7 +23,7 @@ type R = Omit<POINT, "id" | "userId" | "username" | "point">;
 export interface REVEAL extends R {
   reveal: boolean;
   totalPoints: number;
-  ticket: string
+  ticket: string;
 }
 
 export interface TICKET {
@@ -32,7 +32,7 @@ export interface TICKET {
   team: string;
   room: string;
   author: string;
-  revealed: Boolean;
+  revealed: boolean;
 }
 
 export interface PILL {

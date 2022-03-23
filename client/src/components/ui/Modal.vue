@@ -81,7 +81,6 @@ export default defineComponent({
   padding: 25px;
 }
 
-
 @media screen and (max-width: 325px) {
   .header h2 {
     font-size: 15px;

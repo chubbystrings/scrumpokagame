@@ -34,7 +34,7 @@ export default defineComponent({
     const router = useRouter();
     const handleOk = () => {
       store.closeModal();
-      store.$reset()
+      store.$reset();
       router.replace("/");
     };
     return { handleOk };

@@ -45,7 +45,7 @@ export default defineComponent({
     const name = ref("");
     const route = useRoute();
     const selectedAvatar = ref("");
-     const router = useRouter();
+    const router = useRouter();
 
     const isSelected = computed(() => {
       return (i: number) => {
@@ -57,8 +57,6 @@ export default defineComponent({
     const handleSelect = (avatar: string) => {
       selectedAvatar.value = avatar;
     };
-
-    
 
     const handleJoin = () => {
       const user = {
@@ -123,8 +121,8 @@ export default defineComponent({
 }
 
 .contact-inputs input {
-  padding: 0px 10px; 
-  box-sizing: border-box
+  padding: 0px 10px;
+  box-sizing: border-box;
 }
 
 .contact-inputs input,
