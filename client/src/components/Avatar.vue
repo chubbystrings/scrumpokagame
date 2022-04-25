@@ -5,7 +5,12 @@
         <img :src="user?.avatar ? user.avatar : '/images/default-avatar.png'" />
       </div>
       <div>
-        <small class="user--name">{{ user.username && (user.username.length > 15 ? user.username.substring(0, 15) + '...' : user.username ) }}</small>
+        <small class="user--name">{{
+          user.username &&
+          (user.username.length > 15
+            ? user.username.substring(0, 15) + "..."
+            : user.username)
+        }}</small>
       </div>
     </div>
   </transition>
