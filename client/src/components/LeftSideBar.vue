@@ -52,6 +52,7 @@ export default defineComponent({
   padding-left: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background: var(--input);
+  overflow-y: scroll;
 }
 
 .avatars-wrapper {
